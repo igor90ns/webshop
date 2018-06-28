@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products.service';
-import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/product';
 import 'rxjs/add/operator/switchMap'
@@ -13,15 +12,13 @@ import 'rxjs/add/operator/switchMap'
 export class ProductsComponent  {
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  categories$;
   category: string;
 
-  constructor(productService: ProductsService, private categoryService:CategoryService, route:ActivatedRoute) { 
+  constructor(productService: ProductsService,  route:ActivatedRoute) { 
     productService
     .getAll()
     .switchMap(products => {
       this.products = products;
-
       return route.queryParamMap;
     })
 
@@ -34,13 +31,12 @@ export class ProductsComponent  {
       });
 
    
-    this.categories$ = categoryService.getAll();
+    
 
 
    
   }
 
-  ngOnInit() {
-  }
+ 
 
 }
